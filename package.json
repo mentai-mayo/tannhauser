@@ -4,8 +4,6 @@
   "description": "自分で言語作ってみたい",
   "main": "tsbuild/app.mjs",
   "scripts": {
-    "start": "node tsbuild/app.mjs",
-    "test": "npx tsc; echo \"----- >< ----- >< -----\"; node tsbuild/app.mjs",
     "build": "npx tsc"
   },
   "repository": {
