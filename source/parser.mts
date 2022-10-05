@@ -102,7 +102,7 @@ export class Parser {
     this.whiteSpace();
 
     // {
-    while(/\+|\-/.test(this.source[this.cursor])) {
+    while(/\+|\-/.test(this.source[this.cursor] ?? '')) {
 
       // ( operator.plus | operator.minus )
       if(this.source[this.cursor] == '+') {
@@ -149,7 +149,7 @@ export class Parser {
     this.whiteSpace();
 
     // {
-    while(/\*|\//.test(this.source[this.cursor])) {
+    while(/\*|\//.test(this.source[this.cursor] ?? '')) {
 
       // ( operator.multi | operator.divide )
       if(this.source[this.cursor] == '*') {
@@ -253,7 +253,7 @@ export class Parser {
         tail: this.cursor,
       });
       this.cursor++;
-    } else if(/[1-9]/.test(this.source[this.cursor])) {
+    } else if(/[1-9]/.test(this.source[this.cursor] ?? '')) {
 
       // [1-9][0-9]*
       const head = this.cursor;
