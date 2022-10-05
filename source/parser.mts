@@ -26,10 +26,10 @@ export type token = {
   tail: number;
 };
 
-/** debug mode */
-const DEBUG_MODE = true;
-
 export class Parser {
+
+  /** is debug mode */
+  private DEBUG_MODE: boolean = false;
   
   /** source code string */
   private source: string = '';
@@ -40,9 +40,10 @@ export class Parser {
   /** cursor index */
   private cursor: number = 0;
 
-  public parse(source: string): token[] {
+  public parse(source: string, DEBUG_MODE: boolean = false): token[] {
     
     // init
+    this.DEBUG_MODE = DEBUG_MODE;
     this.source = source;
     this.tokens = [];
     this.cursor = 0;
@@ -75,8 +76,8 @@ export class Parser {
    */
   private expression(): void {
 
-    // DEBUG_MODE
-    if(DEBUG_MODE) {
+    // this.DEBUG_MODE
+    if(this.DEBUG_MODE) {
       console.log('[debug]', `call Parser.expression (cursor-pos: ${ this.cursor })`);
       console.group();
     }
@@ -126,7 +127,7 @@ export class Parser {
       // }
     }
 
-    if(DEBUG_MODE) {
+    if(this.DEBUG_MODE) {
       console.groupEnd();
     }
   }
@@ -136,8 +137,8 @@ export class Parser {
    */
   private term(): void {
 
-    // DEBUG_MODE
-    if(DEBUG_MODE) {
+    // this.DEBUG_MODE
+    if(this.DEBUG_MODE) {
       console.log('[debug]', `call Parser.term (cursor-pos: ${ this.cursor })`);
       console.group();
     }
@@ -167,7 +168,7 @@ export class Parser {
       // {
     }
 
-    if(DEBUG_MODE) {
+    if(this.DEBUG_MODE) {
       console.groupEnd();
     }
   }
@@ -177,8 +178,8 @@ export class Parser {
    */
   private factor(): void {
 
-    // DEBUG_MODE
-    if(DEBUG_MODE) {
+    // this.DEBUG_MODE
+    if(this.DEBUG_MODE) {
       console.log('[debug]', `call Parser.factor (cursor-pos: ${ this.cursor })`);
       console.group();
     }
@@ -205,7 +206,7 @@ export class Parser {
       this.literal_integer();
     }
 
-    if(DEBUG_MODE) {
+    if(this.DEBUG_MODE) {
       console.groupEnd();
     }
   }
@@ -216,8 +217,8 @@ export class Parser {
    */
   private separator_semicolon(): void {
 
-    // DEBUG_MODE
-    if(DEBUG_MODE) console.log('[debug]', `call Parser.separator_semicolon (cursor-pos: ${ this.cursor })`);
+    // this.DEBUG_MODE
+    if(this.DEBUG_MODE) console.log('[debug]', `call Parser.separator_semicolon (cursor-pos: ${ this.cursor })`);
     
     if(this.source[this.cursor] == ';') {
 
@@ -241,8 +242,8 @@ export class Parser {
    */
   private literal_integer(): void {
 
-    // DEBUG_MODE
-    if(DEBUG_MODE) console.log('[debug]', `call Parser.literal_integer (cursor-pos: ${ this.cursor })`);
+    // this.DEBUG_MODE
+    if(this.DEBUG_MODE) console.log('[debug]', `call Parser.literal_integer (cursor-pos: ${ this.cursor })`);
     
     if(this.source[this.cursor] == '0') {
       
@@ -278,8 +279,8 @@ export class Parser {
    */
   private brace_group_tail(): void {
 
-    // DEBUG_MODE
-    if(DEBUG_MODE) console.log('[debug]', `call Parser.brace_group_tail (cursor-pos: ${ this.cursor })`);
+    // this.DEBUG_MODE
+    if(this.DEBUG_MODE) console.log('[debug]', `call Parser.brace_group_tail (cursor-pos: ${ this.cursor })`);
     
     // ")"
     if(this.source[this.cursor] == ')') {
@@ -301,8 +302,8 @@ export class Parser {
    */
   private brace_group_head(): void {
 
-    // DEBUG_MODE
-    if(DEBUG_MODE) console.log('[debug]', `call Parser.brace_group_head (cursor-pos: ${ this.cursor })`);
+    // this.DEBUG_MODE
+    if(this.DEBUG_MODE) console.log('[debug]', `call Parser.brace_group_head (cursor-pos: ${ this.cursor })`);
     
     // "("
     if(this.source[this.cursor] == '(') {
@@ -324,8 +325,8 @@ export class Parser {
    */
   private operator_divide(): void {
 
-    // DEBUG_MODE
-    if(DEBUG_MODE) console.log('[debug]', `call Parser.operator_divide (cursor-pos: ${ this.cursor })`);
+    // this.DEBUG_MODE
+    if(this.DEBUG_MODE) console.log('[debug]', `call Parser.operator_divide (cursor-pos: ${ this.cursor })`);
     
     // "/"
     if(this.source[this.cursor] == '/') {
@@ -347,8 +348,8 @@ export class Parser {
    */
   private operator_multi(): void {
 
-    // DEBUG_MODE
-    if(DEBUG_MODE) console.log('[debug]', `call Parser.operator_multi (cursor-pos: ${ this.cursor })`);
+    // this.DEBUG_MODE
+    if(this.DEBUG_MODE) console.log('[debug]', `call Parser.operator_multi (cursor-pos: ${ this.cursor })`);
     
     // "*"
     if(this.source[this.cursor] == '*') {
@@ -370,8 +371,8 @@ export class Parser {
    */
   private operator_plus(): void {
 
-    // DEBUG_MODE
-    if(DEBUG_MODE) console.log('[debug]', `call Parser.operator_plus (cursor-pos: ${ this.cursor })`);
+    // this.DEBUG_MODE
+    if(this.DEBUG_MODE) console.log('[debug]', `call Parser.operator_plus (cursor-pos: ${ this.cursor })`);
     
     // "+"
     if(this.source[this.cursor] == '+') {
@@ -393,8 +394,8 @@ export class Parser {
    */
   private operator_minus(): void {
     
-    // DEBUG_MODE
-    if(DEBUG_MODE) console.log('[debug]', `call Parser.operator_minus (cursor-pos: ${ this.cursor })`);
+    // this.DEBUG_MODE
+    if(this.DEBUG_MODE) console.log('[debug]', `call Parser.operator_minus (cursor-pos: ${ this.cursor })`);
 
     // "-"
     if(this.source[this.cursor] == '-') {
@@ -416,8 +417,8 @@ export class Parser {
    */
   private whiteSpace(): void {
 
-    // DEBUG_MODE
-    if(DEBUG_MODE) console.log('[debug]', `call Parser.whiteSpace (cursor-pos: ${ this.cursor })`);
+    // this.DEBUG_MODE
+    if(this.DEBUG_MODE) console.log('[debug]', `call Parser.whiteSpace (cursor-pos: ${ this.cursor })`);
     
     while(/ |\t|\n|\r|\xa0/.test(this.source[this.cursor] ?? '')) {
       this.cursor++;
