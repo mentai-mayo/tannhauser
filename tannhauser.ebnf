@@ -31,4 +31,4 @@ literal.integer = "0" | ( ( digit.decimal - "0" ) , { digit.decimal } ) ;
 digit.decimal = "0" | "1" | ... | "9" ; # [0-9]
 
 # white space
-ws = { " " | "\t" | "\n" | "\r" |"\xa0" } ; # \xa0 non-break space
+ws = { " " | "\t" | "\n" | "\r" | "\xa0" } ; # \xa0 non-break space
